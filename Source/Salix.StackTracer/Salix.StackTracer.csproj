@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>latest</LangVersion>
+		<RootNamespace>Salix.StackTracer</RootNamespace>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<!-- === NuGet package description properties ===-->
+	<PropertyGroup Label="NuGet properties">
+		<PackageId>Salix.StackTracer</PackageId>
+		<Authors>Anrijs Vitolins;GitHub contributors</Authors>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<DebugSymbols>true</DebugSymbols>
+		<PackageTags>stack trace; stacktrace; parser; stack frames; diagnostics; logging; exception</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIcon>stacktracer.png</PackageIcon>
+		<Description>
+Parses and transforms stack trace into more readable and usable list of stacktrace frames. Possibility to filter own code or specific namespace(s).
+ToString() overrides to include formatted versions into logging. Usable as extension methods for StackTrace object and any Exception.
+Parsed data is available for custom handling, if necessary.
+	    </Description>
+		<PackageReadmeFile>nuget_readme.md</PackageReadmeFile>
+		<PackageProjectUrl>https://github.com/salixzs/StackTracer</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/salixzs/StackTracer</RepositoryUrl>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<PackageReleaseNotes>
+Initial release.
+		</PackageReleaseNotes>
+		<Version>1.0.0</Version>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../stacktracer.png" Pack="true" Visible="false" PackagePath="" />
+    <None Include="../../nuget_readme.md" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+  
+</Project>
