@@ -2,6 +2,7 @@ using Salix.StackTracer.TestClasses;
 
 namespace Salix.StackTracer.Tests;
 
+#pragma warning disable CA2201 // Do not raise reserved exception types
 public class ParserOptionTests
 {
     [Fact]
@@ -101,13 +102,13 @@ public class ParserOptionTests
 
         exc.Should().NotBeNull();
         var testable = exc.ParseStackTrace(new StackTracerOptions
-            {
-                ShowOnlyFramesWithNamespace = new HashSet<string> { "Salix." },
-                SkipFramesContaining = new HashSet<string> { "ButBlackistedExact" }
-            });
+        {
+            ShowOnlyFramesWithNamespace = new HashSet<string> { "Salix." },
+            SkipFramesContaining = new HashSet<string> { "ButBlackistedExact" }
+        });
         testable.Should().NotBeNull();
         testable.Should().HaveCount(1);
         testable[0].MethodName.Should().Be("Math");
     }
-
 }
+#pragma warning restore CA2201 // Do not raise reserved exception types

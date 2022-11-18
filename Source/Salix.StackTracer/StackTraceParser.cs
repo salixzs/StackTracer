@@ -55,7 +55,7 @@ internal static class StackTraceParser
             }
 
             // Experience shows these can be both \ and / in single StackTrace
-            char directorySeparatorChar = '\\';
+            var directorySeparatorChar = '\\';
             if (stackTraceFrame.FilePath.IndexOf(directorySeparatorChar) < 0)
             {
                 directorySeparatorChar = '/';
@@ -75,7 +75,7 @@ internal static class StackTraceParser
             // Remove filename and 1 folder before it from entire file path (so they are preserved)
             filepathFolders.RemoveRange(filepathFolders.Count - 2, 2);
             var nonEmptyFolderList = filepathFolders.Where(f => !string.IsNullOrWhiteSpace(f)).ToList();
-            foreach (string folderName in nonEmptyFolderList)
+            foreach (var folderName in nonEmptyFolderList)
             {
                 if (folderNameOccurrences.ContainsKey(folderName))
                 {
@@ -112,6 +112,7 @@ internal static class StackTraceParser
     /// <summary>
     /// Returns Method signature or null, if method is not passed in.
     /// </summary>
+    /// <param name="frameData">Original stack trace frame.</param>
     /// <param name="method">Method information from reflection.</param>
     private static void PopulateMethodMetadata(StackTraceFrame frameData, MethodBase? method)
     {
@@ -134,7 +135,7 @@ internal static class StackTraceParser
         // Method generic arguments <T, T>
         if (method.IsGenericMethod)
         {
-            foreach(var genericArgument in method.GetGenericArguments())
+            foreach (var genericArgument in method.GetGenericArguments())
             {
                 frameData.GenericArguments.Add(new MethodArgument
                 {
@@ -146,7 +147,7 @@ internal static class StackTraceParser
         }
 
         // Method parameters Method(type param1, type param2)
-        foreach (ParameterInfo methodParameter in method.GetParameters())
+        foreach (var methodParameter in method.GetParameters())
         {
             var parameterDescriber = new MethodArgument
             {

@@ -1,4 +1,4 @@
-﻿namespace Salix.StackTracer;
+namespace Salix.StackTracer;
 
 /// <summary>
 /// Possible options to filter parsed stack trace frames.
@@ -10,7 +10,7 @@ public class StackTracerOptions
     /// Setting this to true normally returns only code frames having line numbers (== having DBG, which means - your own code).<br/>
     /// WARNING: If you deliberately prohibit deploying DBG files in Production - also your code lines will be 0 (filtered out).
     /// </summary>
-    public bool SkipFramesWithoutLineNumber { get; set; } = false;
+    public bool SkipFramesWithoutLineNumber { get; set; }
 
     /// <summary>
     /// Supply a list of strings, which will filter out frames, having/containing these in Path, Namespace or Method name.<br/>
@@ -35,7 +35,7 @@ public class StackTracerOptions
             return false;
         }
 
-        if (ShowOnlyFramesWithNamespace.Any(whitelisted => stackTraceFrame.ContainingType.Namespace.Contains(whitelisted, StringComparison.OrdinalIgnoreCase)))
+        if (ShowOnlyFramesWithNamespace.Any(whitelisted => stackTraceFrame.ContainingType!.Namespace.Contains(whitelisted, StringComparison.OrdinalIgnoreCase)))
         {
             return true;
         }
@@ -50,20 +50,20 @@ public class StackTracerOptions
             return false;
         }
 
-        if (!string.IsNullOrEmpty(stackTraceFrame.FilePath) && SkipFramesContaining.Any(blacklisted => 
-            stackTraceFrame.FilePath.Contains(blacklisted, StringComparison.OrdinalIgnoreCase)))
+        if (!string.IsNullOrEmpty(stackTraceFrame.FilePath) && SkipFramesContaining.Any(blacklisted =>
+            stackTraceFrame.FilePath!.Contains(blacklisted, StringComparison.OrdinalIgnoreCase)))
         {
             return true;
         }
 
         if (!string.IsNullOrEmpty(stackTraceFrame.ContainingType?.Namespace) && SkipFramesContaining.Any(blacklisted =>
-            stackTraceFrame.ContainingType.Namespace.Contains(blacklisted, StringComparison.OrdinalIgnoreCase)))
+            stackTraceFrame.ContainingType!.Namespace.Contains(blacklisted, StringComparison.OrdinalIgnoreCase)))
         {
             return true;
         }
 
         if (!string.IsNullOrEmpty(stackTraceFrame.ContainingType?.Name) && SkipFramesContaining.Any(blacklisted =>
-            stackTraceFrame.ContainingType.Name.Contains(blacklisted, StringComparison.OrdinalIgnoreCase)))
+            stackTraceFrame.ContainingType!.Name.Contains(blacklisted, StringComparison.OrdinalIgnoreCase)))
         {
             return true;
         }

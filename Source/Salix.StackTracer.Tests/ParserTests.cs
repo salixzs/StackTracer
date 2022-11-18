@@ -2,6 +2,7 @@ using Salix.StackTracer.TestClasses;
 
 namespace Salix.StackTracer.Tests;
 
+#pragma warning disable CA2201 // Do not raise reserved exception types
 public class ParserTests
 {
     [Fact]
@@ -154,7 +155,7 @@ public class ParserTests
         ApplicationException exc;
         try
         {
-            new TestableMethods().GenericMethod<int>(11);
+            new TestableMethods().GenericMethod(11);
             exc = new ApplicationException("NO No NO!");
         }
         catch (ApplicationException e)
@@ -176,3 +177,4 @@ public class ParserTests
         testable[1].GenericArguments[0].TypeName.Should().Be("TParm");
     }
 }
+#pragma warning restore CA2201 // Do not raise reserved exception types

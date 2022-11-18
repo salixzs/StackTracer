@@ -1,8 +1,12 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Salix.StackTracer;
 
+/// <summary>
+/// Parsed, cleaned up and simplified stack trace frame (one line).
+/// </summary>
 [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
 public class StackTraceFrame
 {
@@ -14,7 +18,7 @@ public class StackTraceFrame
     /// <summary>
     /// Class, containing <see cref="MethodName"/>, which is part of Stack trace.
     /// </summary>
-    public Type? ContainingType { get; set; } = null;
+    public Type? ContainingType { get; set; }
 
     /// <summary>
     /// Method (code piece) which is part of stack trace.
@@ -27,22 +31,25 @@ public class StackTraceFrame
     public List<MethodArgument> GenericArguments { get; set; } = new List<MethodArgument>();
 
     /// <summary>
-    /// Parameter types and names used in <see cref="MethodName">Method</see> call (No actual values!)
+    /// Parameter types and names used in <see cref="MethodName">Method</see> call
+    /// (Types and Names - without actual values!)
     /// </summary>
     public List<MethodArgument> Parameters { get; set; } = new List<MethodArgument>();
 
     /// <summary>
-    /// Line number in code which is involved in stack trace (in Exception - passing or throwing).
+    /// Line number in code which is involved in stack trace (in Exception - calling code or line actualy caused exception).
     /// </summary>
     public int LineNumber { get; set; }
 
     /// <summary>
-    /// Column number (within <see cref="LineNumber">Line number</see>) in code which is involved in stack trace (for Exception - calling next line or problem line).
+    /// Column number (within <see cref="LineNumber">Line number</see>) in code which is involved in stack trace
+    /// (in Exception - calling code or line actualy caused exception).
     /// </summary>
     public int ColumnNumber { get; set; }
 
     /// <summary>
-    /// String concatenating File and method information for simplified and more readable stack trace frame.
+    /// String concatenating File and method information for simplified and more readable stack trace frame.<br/>
+    /// Can be used directly in logging statements.
     /// </summary>
     public override string ToString()
     {
@@ -61,13 +68,13 @@ public class StackTraceFrame
         sb.Append(this.MethodName);
         if (GenericArguments.Count > 0)
         {
-            string genericArguments = string.Join(", ", this.GenericArguments.Select(arg => arg.TypeName));
+            var genericArguments = string.Join(", ", this.GenericArguments.Select(arg => arg.TypeName));
             sb.Append($"<{genericArguments}>");
         }
 
         if (Parameters.Count > 0)
         {
-            string methodParameters = string.Join(", ", this.Parameters.Select(arg => arg.ToString()));
+            var methodParameters = string.Join(", ", this.Parameters.Select(arg => arg.ToString()));
             sb.Append($"({methodParameters})");
         }
         else
@@ -75,12 +82,12 @@ public class StackTraceFrame
             sb.Append("()");
         }
 
-        if (LineNumber != null)
+        if (LineNumber != 0)
         {
             sb.Append($"; Line:{LineNumber:D}");
         }
 
-        if (ColumnNumber != null)
+        if (ColumnNumber != 0)
         {
             sb.Append($" (Col:{ColumnNumber:D})");
         }
@@ -88,28 +95,48 @@ public class StackTraceFrame
         return sb.ToString();
     }
 
-    private string GetDebuggerDisplay()
-    {
-        return ToString();
-    }
+    [ExcludeFromCodeCoverage]
+    private string GetDebuggerDisplay() => ToString();
 }
 
+/// <summary>
+/// Description of Method's generic argument or parameter.
+/// </summary>
 [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
 public class MethodArgument
 {
+    /// <summary>
+    /// Type of the parameter.
+    /// </summary>
     public required Type Type { get; set; }
+
+    /// <summary>
+    /// Type name 
+    /// </summary>
     public required string TypeName { get; set; }
+
+    /// <summary>
+    /// Name of generic argument or parameter.
+    /// </summary>
     public required string Name { get; set; }
+
+    /// <summary>
+    /// For parameters flag, indicating whether it is OUT.
+    /// </summary>
     public bool IsOut { get; set; }
+
+    /// <summary>
+    /// For parameters flag, indicating whether it is REF parameter.
+    /// </summary>
     public bool IsRef { get; set; }
 
-    public override string ToString()
-    {
-        return $"{(IsOut ? "out " : string.Empty)}{(IsRef ? "ref " : string.Empty)}{TypeName} {Name}";
-    }
+    /// <summary>
+    /// String representation of generic argument or parameter.
+    /// </summary>
+    /// <returns></returns>
+    public override string ToString() =>
+        $"{(IsOut ? "out " : string.Empty)}{(IsRef ? "ref " : string.Empty)}{TypeName} {Name}";
 
-    private string GetDebuggerDisplay()
-    {
-        return ToString();
-    }
+    [ExcludeFromCodeCoverage]
+    private string GetDebuggerDisplay() => ToString();
 }
