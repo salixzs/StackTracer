@@ -32,13 +32,13 @@ jobs:
       run: dotnet restore
 
     - name: Build .Net 7.x
-      run: dotnet build -f net7.0 -c Release
+      run: dotnet build -f net7.0 -c Release Source/Salix.StackTracer/Salix.StackTracer.csproj
 
     - name: Build .Net 6.x
-      run: dotnet build -f net6.0 -c Release
+      run: dotnet build -f net6.0 -c Release Source/Salix.StackTracer/Salix.StackTracer.csproj
 
     - name: Build NetStandard 2.0
-      run: dotnet build -f netstandard2.0 -c Release
+      run: dotnet build -f netstandard2.0 -c Release Source/Salix.StackTracer/Salix.StackTracer.csproj
 
     - name: Test
-      run: dotnet test --no-build
+      run: dotnet test
