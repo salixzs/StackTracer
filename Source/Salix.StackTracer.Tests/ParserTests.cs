@@ -155,7 +155,7 @@ public class ParserTests
         ApplicationException exc;
         try
         {
-            new TestableMethods().GenericMethod(11);
+            new TestableMethods().GenericMethod(DateTime.Now);
             exc = new ApplicationException("NO No NO!");
         }
         catch (ApplicationException e)

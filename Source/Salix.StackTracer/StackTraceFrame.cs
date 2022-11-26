@@ -27,12 +27,18 @@ public class StackTraceFrame
 
     /// <summary>
     /// In case <see cref="MethodName"/> is a generic - here are generic arguments (not actual types, but "T"s).
+    /// <code>
+    /// GenericMethod&lt;TGen1, TGen2&gt;
+    /// </code>
     /// </summary>
     public List<MethodArgument> GenericArguments { get; set; } = new List<MethodArgument>();
 
     /// <summary>
     /// Parameter types and names used in <see cref="MethodName">Method</see> call
     /// (Types and Names - without actual values!)
+    /// <code>
+    /// SomeMethod(int param1, string param2)
+    /// </code>
     /// </summary>
     public List<MethodArgument> Parameters { get; set; } = new List<MethodArgument>();
 
@@ -62,7 +68,7 @@ public class StackTraceFrame
         else if (ContainingType != null)
         {
             sb.Append(ContainingType.FullName);
-            sb.Append("; ");
+            sb.Append(".");
         }
 
         sb.Append(this.MethodName);
