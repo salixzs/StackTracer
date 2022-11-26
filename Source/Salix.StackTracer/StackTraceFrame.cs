@@ -68,7 +68,7 @@ public class StackTraceFrame
         else if (ContainingType != null)
         {
             sb.Append(ContainingType.FullName);
-            sb.Append(".");
+            sb.Append('.');
         }
 
         sb.Append(this.MethodName);
