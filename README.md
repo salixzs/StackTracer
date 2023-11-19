@@ -11,10 +11,20 @@ catch (Exception ex)
 }
 ```
 
+[![Build & Tests](https://github.com/salixzs/StackTracer/actions/workflows/build_test.yml/badge.svg?branch=main)](https://github.com/salixzs/StackTracer/actions/workflows/build_test.yml)
+[![Nuget version](https://img.shields.io/nuget/v/Salix.StackTracer.svg)](https://www.nuget.org/packages/Salix.StackTracer/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Salix.StackTracer.svg)](https://www.nuget.org/packages/Salix.StackTracer/) (since 26-Nov-2022)
+
+#### If you use or like...
+
+Consider "star" this project and/or better\
+<a href="https://www.buymeacoffee.com/salixzs" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 32px !important;width: 146px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+
+
 StackTrace frames can be filtered with several filter approaches to leave only frames from own code and drop everything passed through .Net framework and external package functionalities,
 where normally developers does not have direct control over (and 99% times is not cause for thrown exception).
 
-Overriden `ToString()` for returned `StackTraceFrame` objects can be used to show cleaned up and more readable stack trace output (for logging).
+Overridden `ToString()` for returned `StackTraceFrame` objects can be used to show cleaned up and more readable stack trace output (for logging).
 
 ```
 Salix.StackTracer.Tests\TestableMethods.cs; Throwing(); Line:30 (Col:33)
@@ -22,7 +32,7 @@ Salix.StackTracer.Tests\TestableMethods.cs; WithNullableParameters(Nullable<int>
 Salix.StackTracer.Tests\ParserTests.cs; Method_NullParameters(); Line:128 (Col:13)
 ```
 
-If you want to format or colorize outout yourself, [`StackTraceFrame`](https://github.com/salixzs/StackTracer/blob/main/Source/Salix.StackTracer/StackTraceFrame.cs) has properties containing parts of this output as separate types/strings/objects.
+If you want to format or colorize output yourself, [`StackTraceFrame`](https://github.com/salixzs/StackTracer/blob/main/Source/Salix.StackTracer/StackTraceFrame.cs) has properties containing parts of this output as separate types/strings/objects.
 
 `StackTraceFrame` contains:
 - Method name

@@ -11,7 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		.github\workflows\build_test.yml = .github\workflows\build_test.yml
 		nuget_readme.md = nuget_readme.md
+		.github\workflows\Publish NuGet.yml = .github\workflows\Publish NuGet.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
