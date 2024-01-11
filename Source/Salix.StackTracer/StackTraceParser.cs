@@ -7,9 +7,9 @@ namespace Salix.StackTracer;
 
 internal static class StackTraceParser
 {
-    internal static List<StackTraceFrame> GetStackTrace(StackTrace stackTrace, StackTracerOptions options)
+    internal static List<InternalStackTraceFrame> GetStackTrace(StackTrace stackTrace, StackTracerOptions options)
     {
-        var frames = new List<StackTraceFrame>();
+        var frames = new List<InternalStackTraceFrame>();
         var stackFrames = stackTrace.GetFrames();
         if (stackFrames == null)
         {
@@ -21,7 +21,7 @@ internal static class StackTraceParser
         var folderNameOccurrences = new Dictionary<string, FolderOccurrenceCount>();
         foreach (var frame in stackFrames)
         {
-            var stackTraceFrame = new StackTraceFrame
+            var stackTraceFrame = new InternalStackTraceFrame
             {
                 FilePath = frame.GetFileName(),
                 MethodName = "?", // Filled later below
@@ -47,6 +47,7 @@ internal static class StackTraceParser
                 continue;
             }
 
+            stackTraceFrame.OriginalFrame = frame;
             frames.Add(stackTraceFrame);
 
             if (string.IsNullOrEmpty(stackTraceFrame.FilePath) || stackTraceFrame.FilePath.Length < 2)
@@ -114,7 +115,7 @@ internal static class StackTraceParser
     /// </summary>
     /// <param name="frameData">Original stack trace frame.</param>
     /// <param name="method">Method information from reflection.</param>
-    private static void PopulateMethodMetadata(StackTraceFrame frameData, MethodBase? method)
+    private static void PopulateMethodMetadata(InternalStackTraceFrame frameData, MethodBase? method)
     {
         if (method == null)
         {

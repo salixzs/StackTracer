@@ -32,6 +32,33 @@ public class ParserOptionTests
     }
 
     [Fact]
+    public void Options_OnlyWithLineNumbers_Options()
+    {
+        Exception exc;
+        try
+        {
+            new TestableMethods().Math("0");
+            exc = new ApplicationException("NO No NO!");
+        }
+        catch (DivideByZeroException e)
+        {
+            exc = e;
+        }
+        catch (ApplicationException e)
+        {
+            exc = e;
+        }
+
+        exc.Should().NotBeNull();
+        var testable = exc.ParseStackTrace(opts => opts.SkipFramesWithoutLineNumber = true);
+
+        testable.Should().NotBeNull();
+        testable.Should().HaveCount(2);
+        testable[0].MethodName.Should().Be("Math");
+        testable[1].MethodName.Should().Be("Options_OnlyWithLineNumbers");
+    }
+
+    [Fact]
     public void Options_WhitelistNamespace()
     {
         Exception exc;

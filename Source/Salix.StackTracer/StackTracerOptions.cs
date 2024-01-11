@@ -28,7 +28,7 @@ public class StackTracerOptions
     internal bool HasWhitelist => ShowOnlyFramesWithNamespace.Count > 0;
     internal bool HasBlacklist => SkipFramesContaining.Count > 0;
 
-    internal bool IsWhitelisted(StackTraceFrame stackTraceFrame)
+    internal bool IsWhitelisted(InternalStackTraceFrame stackTraceFrame)
     {
         if (!HasWhitelist || string.IsNullOrEmpty(stackTraceFrame.ContainingType?.Namespace))
         {
@@ -43,7 +43,7 @@ public class StackTracerOptions
         return false;
     }
 
-    internal bool IsBlacklisted(StackTraceFrame stackTraceFrame)
+    internal bool IsBlacklisted(InternalStackTraceFrame stackTraceFrame)
     {
         if (!HasBlacklist)
         {

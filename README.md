@@ -57,6 +57,8 @@ when `ParseStackTrace()` extensions methods are invoked.
 catch (Exception ex)
 {
     var simpleFrames = ex.ParseStackTrace(new StackTracerOptions { SkipFramesWithoutLineNumber = true });
+    // -OR -
+    var simpleFrames = ex.ParseStackTrace(o => o.SkipFramesWithoutLineNumber = true);
 }
 ```
 
@@ -73,6 +75,8 @@ as your own code will not have line number, too.
 catch (Exception ex)
 {
     var simpleFrames = ex.ParseStackTrace(new StackTracerOptions { ShowOnlyFramesWithNamespace = new HashSet<string> { "MyApp." } });
+    // -OR -
+    var simpleFrames = ex.ParseStackTrace(o => o.ShowOnlyFramesWithNamespace = new HashSet<string> { "MyApp." });
 }
 ```
 
@@ -89,6 +93,14 @@ catch (Exception ex)
         ShowOnlyFramesWithNamespace = new HashSet<string> { "MyApp." },
         SkipFramesContaining = new HashSet<string> { "ButBlackistedExact" }
     });
+
+    // - OR -
+
+    var simpleFrames = exc.ParseStackTrace(opts =>
+    {
+        opts.ShowOnlyFramesWithNamespace = new HashSet<string> { "MyApp." };
+        opts.SkipFramesContaining = new HashSet<string> { "ButBlackistedExact" };
+    });
 }
 ```
 
@@ -97,3 +109,17 @@ Can be used to skip general filters, middleware etc. which usually cannot be cau
 
 
 
+## Cleanup original StackTrace
+
+Exception has an extension method to get back a list of StackFrames (.Net objects) which are filtered based on options and file paths shortened.
+
+This can come handy in case there is a need to have .Net StackTrace in their original object types.
+
+
+```c#
+// omitted for brevity
+catch (Exception ex)
+{
+    var filteredFrames = ex.FilteredStackTrace(new StackTracerOptions { SkipFramesWithoutLineNumber = true });
+}
+```

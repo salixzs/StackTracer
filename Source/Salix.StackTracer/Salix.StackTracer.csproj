@@ -31,11 +31,12 @@ Parsed data is available for custom handling, if necessary.
 		<RepositoryUrl>https://github.com/salixzs/StackTracer</RepositoryUrl>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<PackageReleaseNotes>
-Added .Net 8.0 target.
+Added extension method for exception to get filtered original .Net StackFrames (as shortened StackTrace).
+Added options setting action to use instead of options object create beforehand.
 		</PackageReleaseNotes>
-		<Version>1.0.1</Version>
-		<AssemblyVersion>1.0.1.0</AssemblyVersion>
-		<FileVersion>1.0.1.0</FileVersion>
+		<Version>1.1.0</Version>
+		<AssemblyVersion>1.1.0.0</AssemblyVersion>
+		<FileVersion>1.1.0.0</FileVersion>
 	</PropertyGroup>
 
   <ItemGroup>

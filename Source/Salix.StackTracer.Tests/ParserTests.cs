@@ -67,6 +67,30 @@ public class ParserTests
     }
 
     [Fact]
+    public void Exception_Framework_FilteredOriginalFrames()
+    {
+        Exception exc;
+        try
+        {
+            new TestableMethods().Math("0");
+            exc = new ApplicationException("NO No NO!");
+        }
+        catch (DivideByZeroException e)
+        {
+            exc = e;
+        }
+        catch (ApplicationException e)
+        {
+            exc = e;
+        }
+
+        exc.Should().NotBeNull();
+        var testable = exc.FilteredStackTrace(new StackTracerOptions { SkipFramesWithoutLineNumber = true });
+        testable.Should().NotBeNull();
+        testable.Should().HaveCount(2);
+    }
+
+    [Fact]
     public void Method_NoParameters()
     {
         ApplicationException exc;
