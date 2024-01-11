@@ -55,7 +55,7 @@ public class ParserOptionTests
         testable.Should().NotBeNull();
         testable.Should().HaveCount(2);
         testable[0].MethodName.Should().Be("Math");
-        testable[1].MethodName.Should().Be("Options_OnlyWithLineNumbers");
+        testable[1].MethodName.Should().Be("Options_OnlyWithLineNumbers_Options");
     }
 
     [Fact]
